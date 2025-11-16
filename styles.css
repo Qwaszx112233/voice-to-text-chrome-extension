@@ -94,6 +94,7 @@ h1 {
     border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .status {
@@ -133,6 +134,7 @@ h1 {
     resize: vertical;
     background: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #output:focus {
