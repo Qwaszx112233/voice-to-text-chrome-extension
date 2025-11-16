@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голос в Текст</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Голос в Текст</h1>
+        
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">
+                ▶️ Начать запись
+            </button>
+            <button id="stopBtn" class="btn btn-secondary" disabled>
+                ⏹️ Остановить
+            </button>
+            <button id="copyBtn" class="btn btn-success">
+                📋 Копировать текст
+            </button>
+            <button id="clearBtn" class="btn btn-warning">
+                🗑️ Очистить
+            </button>
+        </div>
+
+        <div class="language-selector">
+            <label for="language">Язык распознавания:</label>
+            <select id="language">
+                <option value="ru-RU">Русский</option>
+                <option value="en-US">Английский</option>
+                <option value="es-ES">Испанский</option>
+                <option value="fr-FR">Французский</option>
+                <option value="de-DE">Немецкий</option>
+            </select>
+        </div>
+
+        <div class="status" id="status">
+            🔴 Нажмите "Начать запись"
+        </div>
+
+        <div class="output-container">
+            <textarea 
+                id="output" 
+                placeholder="Текст появится здесь..."
+                readonly
+            ></textarea>
+        </div>
+
+        <div class="info">
+            <small>✨ Для работы требуется микрофон и интернет</small>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
