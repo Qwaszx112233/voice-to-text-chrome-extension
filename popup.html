@@ -6,35 +6,37 @@
     <title>Голос в Текст Pro</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="resizable">
+<body class="dark-theme">
+    <button class="theme-toggle" id="themeToggle" title="Сменить тему">🌙</button>
+    
     <div class="container">
         <div class="header">
             <h1>🎤 Голос в Текст Pro</h1>
-            <p class="subtitle">Продвинутое преобразование речи с AI-пунктуацией</p>
+            <p class="subtitle">Профессиональное распознавание речи с AI</p>
         </div>
         
         <div class="controls-grid">
             <button id="startBtn" class="btn btn-primary">
-                🎤 Начать запись
-                <div class="hotkey">Ctrl+Shift+1</div>
+                <span class="btn-icon">🎤</span>
+                <span class="btn-text">Начать запись</span>
             </button>
             <button id="stopBtn" class="btn btn-secondary" disabled>
-                ⏹️ Остановить
-                <div class="hotkey">Ctrl+Shift+2</div>
+                <span class="btn-icon">⏹️</span>
+                <span class="btn-text">Остановить</span>
             </button>
             <button id="copyBtn" class="btn btn-success">
-                📋 Копировать
-                <div class="hotkey">Ctrl+C</div>
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">Копировать</span>
             </button>
             <button id="clearBtn" class="btn btn-warning">
-                🗑️ Очистить
-                <div class="hotkey">Ctrl+Del</div>
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Очистить</span>
             </button>
         </div>
 
         <div class="config-section">
-            <div class="language-selector">
-                <label for="language">🌐 Язык распознавания:</label>
+            <div class="config-card">
+                <label for="language">🌐 Язык распознавания</label>
                 <select id="language">
                     <option value="ru-RU">Русский</option>
                     <option value="uk-UA">Українська</option>
@@ -42,69 +44,80 @@
                     <option value="es-ES">Español</option>
                     <option value="fr-FR">Français</option>
                     <option value="de-DE">Deutsch</option>
-                    <option value="it-IT">Italiano</option>
-                    <option value="ja-JP">日本語</option>
-                    <option value="ko-KR">한국어</option>
-                    <option value="zh-CN">中文</option>
                 </select>
             </div>
 
-            <div class="settings-panel">
-                <label for="autoPunctuation">⚙️ Настройки:</label>
+            <div class="config-card">
+                <label for="autoPunctuation">⚡ Уровень пунктуации</label>
                 <select id="autoPunctuation">
-                    <option value="high">Высокая пунктуация</option>
-                    <option value="medium" selected>Средняя пунктуация</option>
-                    <option value="low">Базовая пунктуация</option>
-                    <option value="off">Без пунктуации</option>
+                    <option value="high">Высокий</option>
+                    <option value="medium" selected>Средний</option>
+                    <option value="low">Базовый</option>
+                    <option value="off">Отключено</option>
                 </select>
             </div>
         </div>
 
         <div class="status-container">
             <div class="status" id="status">
-                🔴 Готов к записи
+                <span>🔴 Готов к записи</span>
             </div>
+            <div class="progress-bar"></div>
         </div>
 
         <div class="editor-container">
             <div class="toolbar">
-                <button class="toolbar-btn" data-command="bold" title="Жирный (Ctrl+B)">𝐁</button>
-                <button class="toolbar-btn" data-command="italic" title="Курсив (Ctrl+I)">𝐼</button>
-                <button class="toolbar-btn" data-command="underline" title="Подчеркивание (Ctrl+U)">𝐔</button>
-                <div class="toolbar-separator"></div>
-                <button class="toolbar-btn" data-command="insertUnorderedList" title="Список">•</button>
-                <button class="toolbar-btn" data-command="insertOrderedList" title="Нумерованный список">1.</button>
-                <div class="toolbar-separator"></div>
-                <button class="toolbar-btn" id="spellCheckBtn" title="Проверка орфографии">🔤</button>
-                <button class="toolbar-btn" id="formatTextBtn" title="Форматировать текст">✨</button>
-                <button class="toolbar-btn" id="punctuateBtn" title="Расставить знаки препинания">🔠</button>
+                <button class="toolbar-btn" data-command="bold" title="Жирный (Ctrl+B)">
+                    <span>B</span>
+                </button>
+                <button class="toolbar-btn" data-command="italic" title="Курсив (Ctrl+I)">
+                    <span>I</span>
+                </button>
+                <button class="toolbar-btn" data-command="underline" title="Подчеркивание (Ctrl+U)">
+                    <span>U</span>
+                </button>
+                <div style="width: 1px; background: var(--border); margin: 0 4px;"></div>
+                <button class="toolbar-btn" id="spellCheckBtn" title="Проверка орфографии">
+                    <span>🔤</span>
+                </button>
+                <button class="toolbar-btn" id="formatTextBtn" title="Форматировать текст">
+                    <span>✨</span>
+                </button>
+                <button class="toolbar-btn" id="punctuateBtn" title="Расставить пунктуацию">
+                    <span>🔠</span>
+                </button>
             </div>
             <textarea 
                 id="output" 
-                placeholder="Начните запись или введите текст здесь... Редактируйте текст напрямую!"
+                placeholder="Текст появится здесь... Начните запись или введите текст вручную. Используйте панель инструментов для форматирования."
                 spellcheck="false"
             ></textarea>
         </div>
 
-        <div class="instructions" id="instructions" style="display: none;">
-            <h3>🔧 Настройка доступа к микрофону:</h3>
+        <div class="instructions" id="instructions">
+            <h3>🎯 Настройка доступа к микрофону</h3>
             <ol>
-                <li>Нажмите на значок 🔒 в адресной строке</li>
+                <li>Нажмите на значок 🔒 в адресной строке браузера</li>
                 <li>Выберите "Настройки сайта"</li>
-                <li>Разрешите доступ к микрофону</li>
-                <li>Обновите страницу</li>
+                <li>Найдите "Микрофон" и установите "Разрешить"</li>
+                <li>Обновите страницу и попробуйте снова</li>
             </ol>
-            <p>Или перейдите: <code>chrome://settings/content/microphone</code></p>
+            <p>Быстрый переход: <code>chrome://settings/content/microphone</code></p>
         </div>
 
         <div class="footer">
             <div class="info">
-                ✨ Голос в Текст Pro v2.0 • Перетаскивайте и меняйте размер окна
+                Голос в Текст Pro v3.0 • Премиум качество
             </div>
             <div class="stats">
-                <div class="stat-item" id="wordCount">📝 Слов: 0</div>
-                <div class="stat-item" id="charCount">🔤 Символов: 0</div>
-                <div class="stat-item" id="timeCount">⏱️ Время: 0с</div>
+                <div class="stat-item" id="wordCount">
+                    <span>📝</span>
+                    <span id="wordCountText">0 слов</span>
+                </div>
+                <div class="stat-item" id="charCount">
+                    <span>🔤</span>
+                    <span id="charCountText">0 симв.</span>
+                </div>
             </div>
         </div>
     </div>

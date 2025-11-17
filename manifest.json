@@ -1,17 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Голос в Текст Pro",
-  "version": "2.0",
+  "version": "2.1",
   "description": "Продвинутое преобразование голоса в текст с проверкой орфографии и пунктуации",
   "permissions": [
     "activeTab",
-    "storage",
-    "contextMenus",
-    "notifications"
-  ],
-  "host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "storage"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -26,22 +20,6 @@
     "128": "icons/icon128.png"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'"
-  },
-  "commands": {
-    "start_recording": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+1",
-        "mac": "Command+Shift+1"
-      },
-      "description": "Начать запись"
-    },
-    "stop_recording": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+2",
-        "mac": "Command+Shift+2"
-      },
-      "description": "Остановить запись"
-    }
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }
