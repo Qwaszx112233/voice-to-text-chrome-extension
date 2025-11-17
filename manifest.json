@@ -7,6 +7,10 @@
     "activeTab",
     "storage"
   ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Голос в Текст"
