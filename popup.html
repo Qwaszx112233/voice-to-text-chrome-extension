@@ -3,83 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Голос в Текст</title>
+    <title>Голос в Текст Pro</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="resizable">
     <div class="container">
-        <h1>🎤 Голос в Текст</h1>
+        <div class="header">
+            <h1>🎤 Голос в Текст Pro</h1>
+            <p class="subtitle">Продвинутое преобразование речи с AI-пунктуацией</p>
+        </div>
         
-        <div class="controls">
+        <div class="controls-grid">
             <button id="startBtn" class="btn btn-primary">
-                ▶️ Начать запись
+                🎤 Начать запись
+                <div class="hotkey">Ctrl+Shift+1</div>
             </button>
             <button id="stopBtn" class="btn btn-secondary" disabled>
                 ⏹️ Остановить
+                <div class="hotkey">Ctrl+Shift+2</div>
             </button>
             <button id="copyBtn" class="btn btn-success">
-                📋 Копировать текст
+                📋 Копировать
+                <div class="hotkey">Ctrl+C</div>
             </button>
             <button id="clearBtn" class="btn btn-warning">
                 🗑️ Очистить
+                <div class="hotkey">Ctrl+Del</div>
             </button>
         </div>
 
-        <div class="language-selector">
-            <label for="language">Язык распознавания:</label>
-            <select id="language">
-                <option value="ru-RU">Русский</option>
-                <option value="uk-UA">Українська</option>
-                <option value="en-US">Английский</option>
-                <option value="es-ES">Испанский</option>
-                <option value="fr-FR">Французский</option>
-                <option value="de-DE">Немецкий</option>
-            </select>
+        <div class="config-section">
+            <div class="language-selector">
+                <label for="language">🌐 Язык распознавания:</label>
+                <select id="language">
+                    <option value="ru-RU">Русский</option>
+                    <option value="uk-UA">Українська</option>
+                    <option value="en-US">English</option>
+                    <option value="es-ES">Español</option>
+                    <option value="fr-FR">Français</option>
+                    <option value="de-DE">Deutsch</option>
+                    <option value="it-IT">Italiano</option>
+                    <option value="ja-JP">日本語</option>
+                    <option value="ko-KR">한국어</option>
+                    <option value="zh-CN">中文</option>
+                </select>
+            </div>
+
+            <div class="settings-panel">
+                <label for="autoPunctuation">⚙️ Настройки:</label>
+                <select id="autoPunctuation">
+                    <option value="high">Высокая пунктуация</option>
+                    <option value="medium" selected>Средняя пунктуация</option>
+                    <option value="low">Базовая пунктуация</option>
+                    <option value="off">Без пунктуации</option>
+                </select>
+            </div>
         </div>
 
-        <div class="status" id="status">
-            🔴 Готов к записи
+        <div class="status-container">
+            <div class="status" id="status">
+                🔴 Готов к записи
+            </div>
         </div>
 
-        <div class="output-container">
+        <div class="editor-container">
+            <div class="toolbar">
+                <button class="toolbar-btn" data-command="bold" title="Жирный (Ctrl+B)">𝐁</button>
+                <button class="toolbar-btn" data-command="italic" title="Курсив (Ctrl+I)">𝐼</button>
+                <button class="toolbar-btn" data-command="underline" title="Подчеркивание (Ctrl+U)">𝐔</button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-btn" data-command="insertUnorderedList" title="Список">•</button>
+                <button class="toolbar-btn" data-command="insertOrderedList" title="Нумерованный список">1.</button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-btn" id="spellCheckBtn" title="Проверка орфографии">🔤</button>
+                <button class="toolbar-btn" id="formatTextBtn" title="Форматировать текст">✨</button>
+                <button class="toolbar-btn" id="punctuateBtn" title="Расставить знаки препинания">🔠</button>
+            </div>
             <textarea 
                 id="output" 
-                placeholder="Текст появится здесь..."
-                readonly
+                placeholder="Начните запись или введите текст здесь... Редактируйте текст напрямую!"
+                spellcheck="false"
             ></textarea>
         </div>
 
-        <!-- Обновленные инструкции -->
         <div class="instructions" id="instructions" style="display: none;">
-            <h3>🔧 Решение проблем с микрофоном:</h3>
+            <h3>🔧 Настройка доступа к микрофону:</h3>
             <ol>
-                <li><strong>Для расширений Chrome:</strong>
-                    <ul>
-                        <li>Перейдите в: <code>chrome://settings/content/microphone</code></li>
-                        <li>Найдите ваше расширение в списке и установите "Разрешить"</li>
-                        <li>Или удалите расширение и установите заново</li>
-                    </ul>
-                </li>
-                <li><strong>Для сайтов:</strong>
-                    <ul>
-                        <li>Нажмите на значок 🔒 в адресной строке браузера</li>
-                        <li>Выберите "Настройки сайта"</li>
-                        <li>Найдите "Микрофон" и установите "Разрешить"</li>
-                    </ul>
-                </li>
-                <li><strong>Проверьте системные настройки:</strong>
-                    <ul>
-                        <li>Убедитесь, что микрофон включен в настройках Windows/Mac</li>
-                        <li>Проверьте, не заблокирован ли микрофон другими приложениями</li>
-                    </ul>
-                </li>
+                <li>Нажмите на значок 🔒 в адресной строке</li>
+                <li>Выберите "Настройки сайта"</li>
+                <li>Разрешите доступ к микрофону</li>
+                <li>Обновите страницу</li>
             </ol>
+            <p>Или перейдите: <code>chrome://settings/content/microphone</code></p>
         </div>
 
-        <div class="info">
-            <small>✨ Для работы требуется микрофон и интернет</small>
-            <br>
-            <small>🔊 Говорите четко и в обычном темпе для лучшего распознавания</small>
+        <div class="footer">
+            <div class="info">
+                ✨ Голос в Текст Pro v2.0 • Перетаскивайте и меняйте размер окна
+            </div>
+            <div class="stats">
+                <div class="stat-item" id="wordCount">📝 Слов: 0</div>
+                <div class="stat-item" id="charCount">🔤 Символов: 0</div>
+                <div class="stat-item" id="timeCount">⏱️ Время: 0с</div>
+            </div>
         </div>
     </div>
 

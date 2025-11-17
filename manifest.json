@@ -1,11 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "Голос в Текст",
-  "version": "1.0",
-  "description": "Преобразование голоса в текст с помощью Web Speech API",
+  "name": "Голос в Текст Pro",
+  "version": "2.0",
+  "description": "Продвинутое преобразование голоса в текст с проверкой орфографии и пунктуации",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "contextMenus",
+    "notifications"
   ],
   "host_permissions": [
     "https://*/*",
@@ -13,7 +15,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Голос в Текст"
+    "default_title": "Голос в Текст Pro"
   },
   "background": {
     "service_worker": "background.js"
@@ -24,6 +26,22 @@
     "128": "icons/icon128.png"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  },
+  "commands": {
+    "start_recording": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1",
+        "mac": "Command+Shift+1"
+      },
+      "description": "Начать запись"
+    },
+    "stop_recording": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+2",
+        "mac": "Command+Shift+2"
+      },
+      "description": "Остановить запись"
+    }
   }
 }
