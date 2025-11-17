@@ -12,6 +12,7 @@ class SpeechToTextPro {
         this.loadSavedSettings();
         this.checkBrowserSupport();
         this.applyTheme();
+        this.animateElements();
     }
 
     initializeElements() {
@@ -77,6 +78,14 @@ class SpeechToTextPro {
 
         // Горячие клавиши
         document.addEventListener('keydown', (e) => this.handleHotkeys(e));
+    }
+
+    // Анимация элементов при загрузке
+    animateElements() {
+        const elements = document.querySelectorAll('.container > *');
+        elements.forEach((el, index) => {
+            el.style.animationDelay = `${(index + 1) * 0.1}s`;
+        });
     }
 
     toggleTheme() {
@@ -147,6 +156,14 @@ class SpeechToTextPro {
         document.execCommand(command, false, null);
         this.output.focus();
         this.showStatus('✨ Текст отформатирован', 'success');
+    }
+
+    // Визуальный фидбек для кнопок
+    addButtonFeedback(button) {
+        button.classList.add('wave-animation');
+        setTimeout(() => {
+            button.classList.remove('wave-animation');
+        }, 600);
     }
 
     async checkMicrophonePermission() {
@@ -284,6 +301,10 @@ class SpeechToTextPro {
             this.finalTranscript = this.output.value || '';
             this.recognition.lang = this.languageSelect.value;
             
+            // Визуальный фидбек
+            this.addButtonFeedback(this.startBtn);
+            this.startBtn.classList.add('recording-glow');
+            
             setTimeout(() => {
                 this.recognition.start();
             }, 300);
@@ -301,6 +322,7 @@ class SpeechToTextPro {
             this.recognition.stop();
             this.recognition = null;
             this.updateUI();
+            this.startBtn.classList.remove('recording-glow');
             document.querySelector('.status-container').classList.remove('recording');
             this.showStatus('⏹️ Запись остановлена', 'info');
         }
@@ -435,6 +457,29 @@ class SpeechToTextPro {
                 }
             }, 3000);
         }
+    }
+
+    // Анимация печатания для статуса
+    showTypingStatus(message, type = 'info') {
+        this.status.innerHTML = '';
+        this.status.className = `status ${type} typing-effect`;
+        this.status.style.width = '0';
+        
+        let i = 0;
+        const speed = 50;
+        
+        const typeWriter = () => {
+            if (i < message.length) {
+                this.status.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                this.status.classList.remove('typing-effect');
+                this.status.style.width = 'auto';
+            }
+        };
+        
+        typeWriter();
     }
 
     showInstructions() {
